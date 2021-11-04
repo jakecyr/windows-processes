@@ -2,26 +2,31 @@ const { exec } = require('child_process');
 const execPromise = require('util').promisify(exec);
 
 /**
- * Get a list of all running processes.
+ * Get a list of all unique running process names.
  * @returns {Promise<string[]}
  */
 const getProcessNameList = async () => {
   const { stdout } = await execPromise('tasklist');
+  const processNameObject = {};
 
-  return stdout
+  stdout
     .split('\n')
     .slice(3)
     .filter((row) => row.trim())
-    .map((row) => row.split(/\s+/g)[0]);
+    .map((row) => row.split(/\s+/g)[0])
+    .forEach((name) => {
+      processNameObject[name] = true;
+    });
+
+  return Object.keys(processNameObject).sort();
 };
 
 /**
- * Get an object of all running processes with key as process name and value as process id.
- * @returns {Promise<string[]>}
+ * Get an object of all running processes with key as process name and value as a list of process IDs.
+ * @returns {Promise<Record<string, number[]>>}
  */
-const getProcessMap = async () => {
+const getProcessNameToIdMap = async () => {
   const { stdout } = await execPromise('tasklist');
-
   const processMap = {};
 
   stdout
@@ -30,7 +35,17 @@ const getProcessMap = async () => {
     .filter((row) => row.trim())
     .map((row) => row.split(/\s+/g).slice(0, 2))
     .forEach(([name, pid]) => {
-      processMap[name] = parseInt(pid);
+      const processID = parseInt(pid);
+
+      if (isNaN(processID)) {
+        return;
+      }
+
+      if (processMap[name]) {
+        processMap[name].push(processID);
+      } else {
+        processMap[name] = [processID];
+      }
     });
 
   return processMap;
@@ -38,5 +53,5 @@ const getProcessMap = async () => {
 
 module.exports = {
   getProcessNameList,
-  getProcessMap,
+  getProcessNameToIdMap,
 };
