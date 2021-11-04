@@ -1,12 +1,20 @@
 {
   "name": "windows-processes",
   "version": "1.0.0",
-  "description": "Get a map of process names to properties on Windows",
+  "description": "Get information about running Windows processes on Windows.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakecyr/windows-processes.git"
+  },
   "keywords": [
     "windows",
     "processes"
   ],
   "author": "Jake Cyr",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakecyr/windows-processes/issues"
+  },
+  "homepage": "https://github.com/jakecyr/windows-processes#readme"
 }
