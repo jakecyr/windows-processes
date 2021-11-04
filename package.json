@@ -1,0 +1,12 @@
+{
+  "name": "windows-processes",
+  "version": "1.0.0",
+  "description": "Get a map of process names to properties on Windows",
+  "main": "index.js",
+  "keywords": [
+    "windows",
+    "processes"
+  ],
+  "author": "Jake Cyr",
+  "license": "ISC"
+}
