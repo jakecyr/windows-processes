@@ -1,6 +1,6 @@
 {
   "name": "windows-processes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get information about running Windows processes on Windows.",
   "main": "index.js",
   "repository": {
